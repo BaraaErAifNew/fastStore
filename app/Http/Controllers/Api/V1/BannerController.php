@@ -7,7 +7,6 @@ use App\CentralLogics\BannerLogic;
 use App\CentralLogics\Helpers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 class BannerController extends Controller
 {
     public function get_banners(Request $request)
