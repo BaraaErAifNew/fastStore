@@ -131,8 +131,12 @@ class VendorController extends Controller
     public function get_current_orders(Request $request)
     {
         $vendor = $request['vendor'];
-        /*
-         *         ->where(function ($query) use ($vendor) {
+
+        $orders = Order::whereHas('store.vendor', function ($query) use ($vendor) {
+            $query->where('id', $vendor->id);
+        })
+            ->with('customer')
+            ->where(function ($query) use ($vendor) {
                 if (config('order_confirmation_model') == 'store' || $vendor->stores[0]->self_delivery_system) {
                     $query->whereIn('order_status', ['accepted', 'pending', 'confirmed', 'processing', 'handover', 'picked_up']);
                 } else {
@@ -148,18 +152,10 @@ class VendorController extends Controller
                         });
                 }
             })
-         */
-        $orders = Order::whereHas('store.vendor', function ($query) use ($vendor) {
-            $query->where('id', $vendor->id);
-        })
-            ->with('customer')
             ->Notpos()
             ->NotDigitalOrder()
             ->orderBy('schedule_at', 'desc')
-            ->get()
-            ->append('order_details_data');
-
-
+            ->get();
         $orders = Helpers::order_data_formatting($orders, true);
         return response()->json($orders, 200);
     }
