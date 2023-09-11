@@ -14,6 +14,7 @@ use App\Models\Category;
 use App\Models\Currency;
 use App\Models\DMReview;
 use App\Models\DataSetting;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use PayPal\Api\Transaction;
 use Illuminate\Support\Carbon;
@@ -687,7 +688,8 @@ class Helpers
         foreach ($data as $item) {
             $item['add_ons'] = json_decode($item['add_ons']);
             $item['variation'] = json_decode($item['variation'], true);
-            $item['store_id'] = $item['item_details'] ? $item['item_details']['store_id'] : null;
+            $item['store_id'] = Arr::get($item,'item_details.store_id');
+//            $item['store_id'] = $item['item_details'] ? $item['item_details']['store_id'] : null;
             $store = Store::find($item['store_id']);
             if($store){
                 $item['storePhone'] = $store->phone;

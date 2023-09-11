@@ -1298,7 +1298,7 @@
         $(function () {
             $("#coba").spartanMultiImagePicker({
                 fieldName: 'order_proof[]',
-                maxCount: 6 - {{ $order->order_proof !== "null" && $or->order_proof ? count(json_decode($order->order_proof)):0}},
+                maxCount: 6 - {{ $order->order_proof !== "null" && $order->order_proof ? count(json_decode($order->order_proof)):0}},
                 rowHeight: '100px !important',
                 groupClassName: 'spartan_item_wrapper min-w-100px max-w-100px',
                 maxFileSize: '',

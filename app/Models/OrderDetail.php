@@ -19,7 +19,7 @@ class OrderDetail extends Model
         'order_id' => 'integer',
         'quantity' => 'integer',
         'item_campaign_id' => 'integer',
-//        'item_details' => 'json',
+        'item_details' => 'array',
     ];
 
     protected $primaryKey = 'id';
